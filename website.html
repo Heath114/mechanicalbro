@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Struggle.com</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Twimba</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/gsap@3/dist/gsap.min.js"></script>
+    <script src="https://unpkg.com/gsap@3/dist/ScrollTrigger.min.js"></script>
+    <style>
+        #background-video {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh; /* Use 100vh for full viewport height */
+            object-fit: cover;
+            z-index: -1;
+        }
+
+        #feed {
+            color: white;
+            display: flex;
+            text-align: center;
+            justify-content: center;
+            background-color: gray;
+            margin-top: 150px;
+        }
+        h1{
+            display: flex;
+            justify-content: center;
+        }
+        
+        header, main {
+            position: relative; 
+            z-index: 1; 
+            padding: 1em;
+            color: white;
+        }
+        .tweet-input-area {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .profile-pic {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+        }
+        #tweet-input {
+            flex-grow: 1;
+            height: 60px;
+        }
+   
+        #pic1{
+            width: 100px;
+            height: 100px;
+            
+        }
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #000;
+            color: #FFF;
+            line-height: 1.6;
+            margin: 0;
+        }
+
+        h1, h2, h3, .container{
+            font-family: 'Bebas Neue', sans-serif;
+            font-weight: bold;
+            color: #73a5e6; /* Light Steel Blue Text */
+            text-shadow: 1px 1px 2px #000000; /* Dark Slate Gray Shadow */
+        }
+
+        
+        .image-section {
+            display: flex;
+            align-items:flex-end;
+            gap:20px; 
+            padding: 8px; /* Add some padding around the content */
+            width: 100%; /* Adjust the width of the section as needed */
+      
+            }
+
+        .image-section img {
+            width: 100px; /* Adjust the image width as needed */
+            height: auto; /* Maintain image aspect ratio */
+            border-radius: 50%;
+            object-fit: cover;
+            }
+        .image-section ul li{
+            color: black;
+            margin-bottom: 5px;
+        }
+        .text-content {
+            flex-grow: 1; /* Allow the text content to take up remaining space */
+        }
+        /* Main content styles */
+        .main-content {
+            padding: 20px;
+            text-align: center;
+        }
+        #first{
+            padding-bottom: 500px;
+        }
+    </style>
+</head>
+<body>
+        <div class="image-section">
+            <img src="img/hammer-icon-8080.png" alt="Your Image Description">
+            <div class="text-content">
+              <ul>
+                <li>This is some text content that sits next to the image.</il>
+                <li>You can add more text here as needed.</il>
+              </ul> 
+            </div>
+          </div>
+
+
+    <main>
+        <h1 class="fade-in" id="first">Mechanical Engineering, the bane of my existence</h1>
+
+        <div class="tweet-input-area">
+            
+        </div>
+    </main>
+
+
+    <footer class="fade-in">
+        <!-- Example HTML Structure -->
+        <div class="container">
+            <h1>What I Hate About Mechanical Engineering</h1>
+        <section class="main-content">
+            <h2>The Endless Struggle</h2>
+            <p>Short and impactful text that explains your frustration with the subject...</p>
+        </section>
+            <p>Contact Info or any Call-to-Action</p>
+        </div>
+  
+    </footer>
+
+
+
+    <video autoplay muted loop id="background-video" class="fade-in">
+        <source src="img\sisyphus2.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+
+    <div class="feed" id="feed">
+        <h1 class="fade-in">Hello son how are you today</h1>
+    </div>
+    <script>
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Fade-in animation for sections tagged with .fade-in
+        gsap.utils.toArray('.fade-in').forEach(section => {
+            gsap.from(section, {
+                opacity: 0,
+                y: 50,
+                duration: 1,
+                ease: 'power2',
+                scrollTrigger: {
+                    trigger: section,
+                    start: 'top 80%',
+                    end: 'bottom 20%',
+                    scrub: false,
+                    once: true
+                }
+            });
+        });
+    </script>
+</body>
+</html>

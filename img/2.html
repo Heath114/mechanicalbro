@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Precision Engineering Solutions</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            color: #fff;
+            overflow-x: hidden;
+        }
+
+        #background-video {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            object-fit: cover;
+            z-index: -2;
+            /* Reduced brightness filter to make video more prominent */
+            filter: brightness(0.7);
+        }
+
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            /* Changed to a more transparent, green-tinted overlay */
+            background-color: rgba(0, 40, 0, 0.3);
+            z-index: -1;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 50px;
+            position: fixed;
+            width: 100%;
+            z-index: 100;
+            transition: 0.3s;
+            /* Using transparent background to show more of the video */
+            background-color: rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(5px);
+        }
+
+        header.scrolled {
+            /* Darker green-tinted background when scrolled */
+            background-color: rgba(5, 30, 5, 0.9);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            padding: 15px 50px;
+        }
+
+        .logo {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 24px;
+            font-weight: 700;
+            color: #fff;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo i {
+            margin-right: 10px;
+            /* Changed to green accent color */
+            color: #4CAF50;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        nav ul li {
+            margin-left: 30px;
+        }
+
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: 500;
+            transition: 0.3s;
+        }
+
+        nav ul li a:hover {
+            /* Changed to green accent color */
+            color: #8BC34A;
+        }
+
+        .contact-btn {
+            /* Changed to green accent color */
+            background-color: #4CAF50;
+            color: #fff;
+            border: none;
+            padding: 10px 25px;
+            font-size: 16px;
+            font-weight: 500;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .contact-btn:hover {
+            /* Darker green on hover */
+            background-color: #3e8e41;
+            transform: translateY(-2px);
+        }
+
+        section {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 50px;
+            /* Added position relative for proper stacking */
+            position: relative;
+        }
+
+        /* Section-specific transparencies to show more of the video */
+        #home {
+            background-color: rgba(0, 0, 0, 0.1);
+        }
+
+        #services {
+            background-color: rgba(0, 20, 0, 0.2);
+        }
+
+        #projects {
+            background-color: rgba(0, 0, 0, 0.1);
+        }
+
+        section h2 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 42px;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 15px;
+        }
+
+        section h2::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 100px;
+            height: 4px;
+            /* Changed to green accent color */
+            background-color: #4CAF50;
+        }
+
+        .content-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+            /* Added glassy effect to content containers */
+            padding: 30px;
+            background-color: rgba(10, 30, 10, 0.4);
+            backdrop-filter: blur(5px);
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .hero-content {
+            max-width: 700px;
+        }
+
+        .hero-title {
+            font-size: 62px;
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 20px;
+            /* Added text shadow for better readability against video */
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .hero-subtitle {
+            font-size: 24px;
+            font-weight: 300;
+            margin-bottom: 40px;
+            /* Added text shadow for better readability against video */
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
+        }
+
+        .cta-buttons {
+            display: flex;
+        }
+
+        .btn {
+            padding: 12px 30px;
+            font-size: 16px;
+            font-weight: 500;
+            text-decoration: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: 0.3s;
+            margin-right: 15px;
+        }
+
+        .btn-primary {
+            /* Changed to green accent color */
+            background-color: #4CAF50;
+            color: #fff;
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            color: #fff;
+            border: 2px solid #fff;
+        }
+
+        .btn-primary:hover {
+            /* Darker green on hover */
+            background-color: #3e8e41;
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary:hover {
+            /* Light green tint on hover */
+            background-color: rgba(76, 175, 80, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .service-card {
+            /* More transparent background to show video */
+            background-color: rgba(0, 20, 0, 0.6);
+            padding: 30px;
+            border-radius: 8px;
+            transition: 0.3s;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            /* Add slight green glow on hover */
+            box-shadow: 0 10px 30px rgba(76, 175, 80, 0.3);
+        }
+
+        .service-icon {
+            font-size: 40px;
+            /* Changed to green accent color */
+            color: #8BC34A;
+            margin-bottom: 20px;
+        }
+
+        .service-title {
+            font-size: 22px;
+            margin-bottom: 15px;
+        }
+
+        .service-description {
+            color: #e0e0e0;
+            line-height: 1.6;
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .project-card {
+            /* More transparent background to show video */
+            background-color: rgba(0, 20, 0, 0.6);
+            border-radius: 8px;
+            overflow: hidden;
+            transition: 0.3s;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+            /* Add slight green glow on hover */
+            box-shadow: 0 10px 30px rgba(76, 175, 80, 0.3);
+        }
+
+        .project-image {
+            height: 250px;
+            width: 100%;
+            /* Darker green background for image placeholders */
+            background-color: rgba(0, 50, 0, 0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 48px;
+            /* Changed to green accent color */
+            color: #8BC34A;
+        }
+
+        .project-info {
+            padding: 25px;
+        }
+
+        .project-title {
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+
+        .project-description {
+            color: #e0e0e0;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        .project-link {
+            /* Changed to green accent color */
+            color: #8BC34A;
+            text-decoration: none;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+        }
+
+        .project-link i {
+            margin-left: 5px;
+            transition: 0.3s;
+        }
+
+        .project-link:hover i {
+            transform: translateX(5px);
+        }
+
+        footer {
+            /* Dark green footer */
+            background-color: rgba(5, 30, 5, 0.9);
+            padding: 20px 50px;
+            text-align: center;
+            position: relative;
+        }
+
+        footer p {
+            color: #ccc;
+        }
+
+        footer a {
+            /* Changed to green accent color */
+            color: #8BC34A;
+            text-decoration: none;
+        }
+
+        /* Video controls visibility */
+        #video-controls {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 10px;
+            border-radius: 50%;
+            z-index: 100;
+            cursor: pointer;
+            color: white;
+            opacity: 0.5;
+            transition: 0.3s;
+        }
+
+        #video-controls:hover {
+            opacity: 1;
+        }
+
+        /* Added green-tinted scroll indicator */
+        .scroll-indicator {
+            position: absolute;
+            bottom: 50px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            animation: bounce 2s infinite;
+            color: white;
+            opacity: 0.7;
+        }
+
+        .scroll-indicator i {
+            font-size: 24px;
+            color: #8BC34A;
+        }
+
+        .scroll-indicator span {
+            margin-top: 10px;
+            font-size: 14px;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0);
+            }
+            40% {
+                transform: translateY(-20px);
+            }
+            60% {
+                transform: translateY(-10px);
+            }
+        }
+
+        @media (max-width: 768px) {
+            header {
+                padding: 15px 30px;
+            }
+            
+            .logo {
+                font-size: 20px;
+            }
+            
+            nav ul li {
+                margin-left: 15px;
+            }
+            
+            section {
+                padding: 30px;
+            }
+            
+            .hero-title {
+                font-size: 42px;
+            }
+            
+            .hero-subtitle {
+                font-size: 18px;
+            }
+
+            .content-container {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Background Video Element (More prominent now) -->
+    <video autoplay muted loop id="background-video">
+        <!-- You'll add your video source here -->
+        <source src="img\sisyphus2.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+    
+    <!-- Lighter green-tinted overlay -->
+    <div class="overlay"></div>
+    
+    <!-- Header/Navigation (More transparent) -->
+    <header id="header">
+        <div class="logo">
+            <i class="fas fa-leaf"></i>EcoTech
+        </div>
+        <nav>
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#projects">Projects</a></li>
+            </ul>
+        </nav>
+        <button class="contact-btn">Contact Us</button>
+    </header>
+    
+    <!-- Section 1: Hero -->
+    <section id="home">
+        <div class="content-container">
+            <div class="hero-content">
+                <h1 class="hero-title">Sustainable Engineering Solutions</h1>
+                <p class="hero-subtitle">Innovative mechanical design with a focus on environmental sustainability and eco-friendly technology.</p>
+                <div class="cta-buttons">
+                    <a href="#services" class="btn btn-primary">Our Services</a>
+                    <a href="#projects" class="btn btn-secondary">View Projects</a>
+                </div>
+            </div>
+        </div>
+        <div class="scroll-indicator">
+            <i class="fas fa-chevron-down"></i>
+            <span>Scroll to explore</span>
+        </div>
+    </section>
+    
+    <!-- Section 2: Services -->
+    <section id="services">
+        <div class="content-container">
+            <h2>Our Expertise</h2>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-seedling"></i>
+                    </div>
+                    <h3 class="service-title">Green Design</h3>
+                    <p class="service-description">Sustainable mechanical design solutions that minimize environmental impact while maximizing efficiency and performance.</p>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-solar-panel"></i>
+                    </div>
+                    <h3 class="service-title">Renewable Energy Systems</h3>
+                    <p class="service-description">Engineering and optimization of components for solar, wind, and other renewable energy applications.</p>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-recycle"></i>
+                    </div>
+                    <h3 class="service-title">Circular Manufacturing</h3>
+                    <p class="service-description">Design for disassembly and recycling, extending product lifecycles and reducing waste through innovative engineering.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Section 3: Projects -->
+    <section id="projects">
+        <div class="content-container">
+            <h2>Recent Projects</h2>
+            <div class="projects-grid">
+                <div class="project-card">
+                    <div class="project-image">
+                        <i class="fas fa-wind"></i>
+                    </div>
+                    <div class="project-info">
+                        <h3 class="project-title">Wind Turbine Optimization</h3>
+                        <p class="project-description">Redesigned blade components resulting in 22% increased energy capture in low-wind conditions while reducing material use.</p>
+                        <a href="#" class="project-link">Learn more <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+                
+                <div class="project-card">
+                    <div class="project-image">
+                        <i class="fas fa-water"></i>
+                    </div>
+                    <div class="project-info">
+                        <h3 class="project-title">Water Filtration System</h3>
+                        <p class="project-description">Developed a compact mechanical filtration system that operates without electricity, providing clean water in remote locations.</p>
+                        <a href="#" class="project-link">Learn more <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+                
+                <div class="project-card">
+                    <div class="project-image">
+                        <i class="fas fa-charging-station"></i>
+                    </div>
+                    <div class="project-info">
+                        <h3 class="project-title">EV Charging Infrastructure</h3>
+                        <p class="project-description">Engineered robust, weather-resistant components for electric vehicle charging stations with 40% faster heat dissipation.</p>
+                        <a href="#" class="project-link">Learn more <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Video Controls -->
+    <div id="video-controls">
+        <i class="fas fa-volume-mute" id="volume-icon"></i>
+    </div>
+    
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2025 EcoTech Engineering. All rights reserved. <a href="#">Privacy Policy</a></p>
+    </footer>
+    
+    <script>
+        // Scroll header effect
+        window.addEventListener('scroll', function() {
+            const header = document.getElementById('header');
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+        
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        // Video controls functionality
+        const videoControls = document.getElementById('video-controls');
+        const volumeIcon = document.getElementById('volume-icon');
+        const video = document.getElementById('background-video');
+        
+        videoControls.addEventListener('click', function() {
+            if (video.muted) {
+                video.muted = false;
+                volumeIcon.classList.remove('fa-volume-mute');
+                volumeIcon.classList.add('fa-volume-up');
+            } else {
+                video.muted = true;
+                volumeIcon.classList.remove('fa-volume-up');
+                volumeIcon.classList.add('fa-volume-mute');
+            }
+        });
+    </script>
+</body>
+</html>

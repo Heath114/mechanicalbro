@@ -1,0 +1,212 @@
+.menu-page {
+    font-family: sans-serif;
+    background-color: #f9f9f9;
+    padding: 20px;
+  }
+  
+  .top-banner {
+    background-color: #333;
+    color: white;
+    padding: 20px;
+    border-radius: 8px;
+    position: relative;
+    overflow: hidden; /* To contain the partial image */
+  }
+  
+  .banner-text h1, .banner-text p {
+    margin: 0;
+  }
+  
+  .banner-image {
+    position: absolute;
+    top: -20px;
+    right: -50px;
+    width: 150px;
+    height: 100px;
+    background-image: url('path/to/partial-burger.jpg'); /* Replace with actual URL */
+    background-size: cover;
+    opacity: 0.6;
+    transform: rotate(10deg);
+  }
+  
+  .menu-items {
+    list-style: none;
+    padding: 0;
+    margin-top: 20px;
+  }
+  
+  .menu-item {
+    display: flex;
+    align-items: center;
+    padding: 15px 0;
+    border-bottom: 1px solid #eee;
+  }
+  
+  .menu-item:last-child {
+    border-bottom: none;
+  }
+  
+  .item-image {
+    width: 60px;
+    height: 60px;
+    margin-right: 15px;
+    background-size: cover;
+    border-radius: 8px;
+  }
+  
+  .item-image.pizza {
+    background-image: url('path/to/pizza-icon.png'); /* Replace with actual URL */
+  }
+  
+  .item-image.hamburger {
+    background-image: url('path/to/hamburger-icon.png'); /* Replace with actual URL */
+  }
+  
+  .item-image.beer {
+    background-image: url('path/to/beer-icon.png'); /* Replace with actual URL */
+  }
+  
+  .item-details {
+    flex-grow: 1;
+  }
+  
+  .item-details h3 {
+    margin-top: 0;
+    margin-bottom: 5px;
+  }
+  
+  .add-button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 50%;
+    font-size: 1.2em;
+    cursor: pointer;
+  }
+  
+  .order-summary {
+    margin-top: 30px;
+    padding: 20px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .order-summary h2 {
+    margin-top: 0;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 10px;
+    margin-bottom: 15px;
+  }
+  
+  .order-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+  }
+  
+  .total-price {
+    display: flex;
+    justify-content: space-between;
+    padding-top: 15px;
+    border-top: 1px solid #eee;
+    font-weight: bold;
+  }
+  
+  .complete-order-button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 15px 20px;
+    border-radius: 8px;
+    font-size: 1em;
+    cursor: pointer;
+    width: 100%;
+    margin-top: 20px;
+  }
+  
+  .modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .card-details-modal {
+    background-color: white;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    width: 80%;
+    max-width: 400px;
+  }
+  
+  .card-details-modal h2 {
+    margin-top: 0;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  
+  .card-form input[type="text"] {
+    width: calc(100% - 20px);
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+  
+  .pay-button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 15px 20px;
+    border-radius: 8px;
+    font-size: 1em;
+    cursor: pointer;
+    width: 100%;
+  }
+  
+  .modal-order-summary, .modal-total-price {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+    margin-top: 10px;
+    font-size: 0.9em;
+  }
+  
+  .modal-total-price {
+    padding-top: 15px;
+    border-top: 1px solid #eee;
+    font-weight: bold;
+    margin-top: 20px;
+  }
+  .confirmation-page {
+    font-family: sans-serif;
+    background-color: #e6ffe6; /* Light green */
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-image: url('path/to/arrow-graphic.png'); /* Replace with actual URL */
+    background-repeat: no-repeat;
+    background-position: bottom right;
+    background-size: contain; /* Adjust as needed */
+    padding: 20px;
+    text-align: center;
+  }
+  
+  .confirmation-message {
+    font-size: 1.5em;
+    color: #333;
+    font-weight: bold;
+  }
+  .hidden{
+    visibility: hidden;
+  }

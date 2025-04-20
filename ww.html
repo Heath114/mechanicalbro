@@ -1,0 +1,998 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Strength of Materials: Engineering's Ultimate Nightmare</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/ScrollTrigger.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/countup.js/2.0.8/countUp.min.js"></script>
+    <style>
+        :root {
+            --primary: #1a2a40;
+            --secondary: #324a5f;
+            --accent: #e63946;
+            --light: #f8f9fa;
+            --dark: #212529;
+            --highlight: #ffd166;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Montserrat', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Ensure Montserrat is loaded or available */
+        }
+
+        body {
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .parallax-container {
+            height: 100vh;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .parallax-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 120%;
+            /* Placeholder: Replace with actual image/content */
+            background: linear-gradient(rgba(26, 42, 64, 0.85), rgba(26, 42, 64, 0.9)), url('https://placehold.co/1920x1080') no-repeat center;
+            background-size: cover;
+            transform: translateZ(-1px) scale(2);
+            z-index: -1;
+        }
+
+        header {
+            height: 100vh;
+            color: white;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            position: relative;
+        }
+
+        .header-content {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        h1 {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            letter-spacing: 2px;
+            line-height: 1.2;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .tagline {
+            font-size: 1.5rem;
+            font-style: italic;
+            margin-bottom: 2rem;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0) translateX(-50%);
+            }
+            40% {
+                transform: translateY(-20px) translateX(-50%);
+            }
+            60% {
+                transform: translateY(-10px) translateX(-50%);
+            }
+        }
+
+        .scroll-indicator svg {
+            width: 30px;
+            height: 30px;
+            fill: white;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 6rem 2rem;
+        }
+
+        section {
+            margin-bottom: 8rem; /* [cite: 23] */
+        }
+
+        h2 {
+            color: var(--primary);
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 3px solid var(--accent);
+            font-size: 2.5rem;
+            position: relative;
+        }
+
+        h2:after {
+            content: "";
+            position: absolute;
+            width: 50px;
+            height: 3px;
+            background-color: var(--highlight);
+            bottom: -3px;
+            left: 0;
+        }
+
+        p {
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        .card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            z-index: 1;
+        }
+
+        .card:hover {
+            transform: translateY(-15px) scale(1.03);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+        }
+
+        .testimonial {
+            background: linear-gradient(135deg, var(--primary), var(--secondary)); /* [cite: 32] */
+            color: white; /* [cite: 32] */
+            padding: 6rem 0; /* [cite: 32] */
+            position: relative; /* [cite: 32] */
+            overflow: hidden; /* [cite: 32] */
+            /* Note: No margin-bottom is explicitly set here, but following section has padding-top */
+        }
+        
+
+        .testimonial-container {
+            position: relative;
+            z-index: 1;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .quote {
+            font-size: 1.5rem;
+            max-width: 900px;
+            margin: 0 auto;
+            font-style: italic;
+            text-align: center;
+            line-height: 1.8;
+            position: relative;
+            padding: 0 2rem;
+        }
+
+        .quote:before, .quote:after {
+            content: "\"";
+            font-size: 6rem;
+            position: absolute;
+            color: var(--highlight);
+            opacity: 0.3;
+            font-family: Georgia, serif;
+         }
+
+        .quote:before {
+            top: -3rem;
+            left: -1rem;
+        }
+
+        .quote:after {
+            content: "\"";
+            bottom: -5rem;
+            right: -1rem;
+        }
+
+        .author {
+            margin-top: 2rem;
+            font-weight: bold;
+            text-align: center;
+            font-size: 1.2rem;
+        }
+
+        .author span {
+            display: block;
+            font-weight: normal;
+            font-size: 1rem;
+            color: var(--highlight);
+            margin-top: 0.5rem;
+        }
+
+        .horror-stories {
+            background-color: #f1f1f1;
+            padding: 6rem 0;
+            position: relative;
+        }
+
+        .horror-stories:before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            /* Placeholder: Replace with actual image/content */
+            background: url('https://placehold.co/1200x800') center/cover; /* [cite: 44] */
+            opacity: 0.05; /* [cite: 44] */
+            z-index: 0; /* [cite: 44] */
+        }
+
+        .horror-container {
+            position: relative;
+            z-index: 1;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .horror-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .horror-story {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease;
+        }
+
+        .horror-story:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+        }
+
+        .horror-story h3 {
+            color: var(--accent);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .cta {
+            text-align: center;
+            padding: 8rem 0;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta:before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            /* Placeholder: Replace with actual image/content */
+            background: url('https://placehold.co/1200x800') center/cover; /* [cite: 55] */
+            opacity: 0.1; /* [cite: 55] */
+            z-index: 0; /* [cite: 55] */
+        }
+
+        .cta-container {
+            position: relative;
+            z-index: 1;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .cta h2 {
+            color: white;
+            border-bottom: none;
+            padding-bottom: 0;
+            margin-bottom: 1.5rem;
+        }
+
+        .cta h2:after {
+            display: none;
+        }
+
+        .cta p {
+            font-size: 1.3rem;
+            margin-bottom: 2.5rem;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: var(--accent);
+            color: white;
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1rem;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 20px rgba(230, 57, 70, 0.3);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .btn:before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: all 0.6s ease;
+            z-index: -1;
+        }
+
+        .btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(230, 57, 70, 0.4);
+        }
+
+        .btn:hover:before {
+            left: 100%;
+        }
+
+        footer {
+            background-color: var(--dark);
+            color: white;
+            text-align: center;
+            padding: 3rem 0;
+            font-size: 1rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .social-icons {
+            margin: 1.5rem 0;
+        }
+
+        .social-icons a {
+            display: inline-block;
+            margin: 0 0.5rem;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            transition: all 0.3s ease;
+            color: white; /* Added color for text placeholders */
+            text-decoration: none; /* Added for text placeholders */
+            font-size: 0.8rem; /* Adjusted size for text placeholders */
+        }
+
+        .social-icons a:hover {
+            background-color: var(--accent);
+            transform: translateY(-3px);
+        }
+
+        /* SVG styles are kept in case SVGs are added later */
+        .social-icons svg {
+            width: 20px;
+            height: 20px;
+            fill: white;
+        }
+
+        .copyright {
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding-top: 1.5rem;
+            margin-top: 1.5rem;
+            font-size: 0.9rem;
+            color: rgba(255,255,255,0.7);
+        }
+
+        .cards-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2.5rem;
+            margin-top: 3rem;
+        }
+
+        .card-number {
+            position: absolute;
+            top: -15px;
+            left: -15px;
+            width: 50px;
+            height: 50px;
+            background-color: var(--accent);
+            color: white;
+            font-size: 1.5rem;
+            font-weight: bold;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 50%;
+            box-shadow: 0 5px 15px rgba(230, 57, 70, 0.3);
+            z-index: 2;
+        }
+
+        .card-img {
+            height: 220px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.8s ease;
+        }
+
+        .card:hover .card-img img {
+            transform: scale(1.1);
+        }
+
+        .card-content {
+            padding: 2rem;
+            position: relative;
+        }
+
+        .card h3 {
+            color: var(--primary);
+            margin-bottom: 1.2rem;
+            font-size: 1.5rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+
+        .highlight {
+            color: var(--accent);
+            font-weight: bold;
+        }
+
+        .comparison-section {
+            background-color: #f9f9f9;
+            padding: 6rem 0;
+        }
+
+        .comparison {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+            gap: 3rem;
+            margin-top: 3rem;
+        }
+
+        .comparison-col {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 12px;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .comparison-col:hover {
+            transform: translateY(-10px);
+        }
+
+        .comparison-col h3 {
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            text-align: center;
+            padding-bottom: 0.8rem;
+            border-bottom: 2px solid var(--secondary);
+            font-size: 1.5rem;
+        }
+
+        .comparison-col ul {
+            padding-left: 0;
+            list-style-type: none;
+        }
+
+        .comparison-col li {
+            margin-bottom: 1.2rem;
+            padding-left: 2rem;
+            position: relative;
+        }
+
+        .comparison-col li:before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 0.5rem;
+            width: 10px;
+            height: 10px;
+            background-color: var(--accent);
+            border-radius: 50%;
+        }
+
+        .comparison-col li strong {
+            color: var(--secondary);
+            display: block;
+            margin-bottom: 0.3rem;
+        }
+
+        /* New Styles for Additional Sections */
+        .impossible-concepts {
+            background-color: #f9f9f9;
+            padding: 6rem 0;
+        }
+
+        .concept-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .concept-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2.5rem;
+            margin-top: 3rem;
+        }
+
+        .concept-card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+            overflow: hidden;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .concept-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+
+        .concept-img {
+            height: 200px;
+            position: relative;
+            overflow: hidden;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .concept-content {
+            padding: 2rem;
+        }
+
+        .concept-content h3 {
+            color: var(--accent);
+            margin-bottom: 1rem;
+            font-size: 1.4rem;
+        }
+
+        .professor-bias {
+             /* *** MODIFIED RULE *** */
+            padding: 2rem 0 6rem 0; /* Reduced top padding to 2rem, kept bottom padding at 6rem */
+        }
+
+        .bias-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .professor-card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+            padding: 2.5rem;
+            position: relative;
+            margin-top: 3rem;
+        }
+
+        .professor-card:before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--accent), var(--primary));
+            border-radius: 12px 12px 0 0;
+        }
+
+        .professor-quote {
+            font-size: 1.2rem;
+            font-style: italic;
+            margin-bottom: 1.5rem;
+            padding-left: 2rem;
+            border-left: 4px solid var(--secondary);
+        }
+
+        .professor-info {
+            display: flex;
+            align-items: center;
+            margin-top: 2rem;
+        }
+
+        .professor-avatar {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            overflow: hidden;
+            background-size: cover;
+            background-position: center;
+            margin-right: 1.5rem;
+            border: 3px solid var(--light);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            /* Placeholder: Replace with actual image/content */
+        }
+
+        .professor-name {
+            font-weight: bold;
+            color: var(--primary);
+        }
+
+        .professor-title {
+            color: var(--secondary);
+            font-size: 0.9rem;
+        }
+
+        .mental-health {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 6rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .mental-health:before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            /* Placeholder: Replace with actual image/content */
+            background: url('https://placehold.co/1200x800') center/cover; /* [cite: 122] */
+            opacity: 0.1; /* [cite: 122] */
+            z-index: 0; /* [cite: 122] */
+        }
+
+        .mental-container {
+            position: relative;
+            z-index: 1;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .mental-health h2 {
+            color: white;
+            border-bottom-color: var(--highlight);
+        }
+
+        .mental-health h2:after {
+            background-color: white;
+        }
+
+        .impact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2.5rem;
+            margin-top: 3rem;
+        }
+
+        .impact-card {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+            border: 1px solid rgba(255,255,255,0.1);
+            transition: all 0.3s ease;
+        }
+
+        .impact-card:hover {
+            transform: translateY(-10px);
+            background: rgba(255,255,255,0.15);
+        }
+
+        .impact-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--highlight);
+        }
+
+        .impact-title {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: white;
+        }
+
+        .counter-section {
+            padding: 6rem 0;
+            background: #f1f1f1;
+        }
+
+        .counter-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .counter-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .counter-item {
+            background: white;
+            padding: 2.5rem 1.5rem;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+
+        .counter-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+
+        .counter-value {
+            font-size: 3.5rem;
+            font-weight: bold;
+            color: var(--accent);
+            margin-bottom: 1rem;
+        }
+
+        .counter-text {
+            font-size: 1.1rem;
+            color: var(--secondary);
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+            100% {
+                transform: translateY(0px);
+            }
+        }
+
+        .floating-icon {
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @media (max-width: 768px) {
+            .concept-grid, .impact-grid, .counter-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="impossible-concepts fade-in">
+        <div class="concept-container">
+            <h2>Five Impossible Concepts That Defy Comprehension</h2>
+            <p class="intro-paragraph">Beyond the general difficulty of Strength of Materials lies a series of particularly nightmarish concepts that seem deliberately designed to make students question their sanity. These concepts represent the pinnacle of academic sadism, combining abstract mathematics with counterintuitive physics in ways that few humans can naturally comprehend.</p>
+
+            <div class="concept-grid">
+                <div class="concept-card">
+                     <div class="concept-img" style="background-image: url('https://placehold.co/600x400')"></div>
+                    <div class="concept-content">
+                        <h3>Mohr's Circle of Doom</h3>
+                        <p>A geometric representation of stress states that requires students to perform mental gymnastics while drawing perfect circles under exam pressure. One small error in drawing this abstract geometric representation ruins the entire analysis.</p>
+                        <p>Students report experiencing "Mohr's Circle PTSD" where they wake up in cold sweats attempting to transform stress tensors in their dreams.</p>
+                    </div>
+                </div>
+
+                <div class="concept-card">
+                     <div class="concept-img" style="background-image: url('https://placehold.co/600x400')"></div>
+                    <div class="concept-content">
+                        <h3>The Betrayal of Saint-Venant's Principle</h3>
+                         <p>A principle that conveniently invalidates everything you've just learned by stating that "localized effects remain localized" – except when they don't, with no clear guidance on when the principle applies.</p>
+                        <p>This principle creates the perfect no-win scenario: get the wrong answer? You misapplied the principle. Get the right answer? You just got lucky.</p>
+                    </div>
+                </div>
+
+                <div class="concept-card">
+                     <div class="concept-img" style="background-image: url('https://placehold.co/600x400')"></div>
+                    <div class="concept-content">
+                        <h3>Unsymmetric Bending Nightmares</h3>
+                        <p>While symmetric bending is already challenging, professors delight in introducing unsymmetric bending problems that require determining principal axes of inertia through complex eigenvalue problems just to find how a simple beam bends.</p>
+                        <p>The disconnect between the apparent simplicity of the physical problem and the mathematical monstrosity required to solve it breaks students' spirits.</p>
+                    </div>
+                </div>
+
+                <div class="concept-card">
+                     <div class="concept-img" style="background-image: url('https://placehold.co/600x400')"></div>
+                    <div class="concept-content">
+                        <h3>Stress Concentration Factors</h3>
+                         <p>After learning pages of equations to calculate stresses in perfect components, students discover that tiny geometric features can multiply stresses by factors approaching infinity, rendering all previous calculations useless.</p>
+                        <p>This revelation comes with cryptic charts containing unexplained constants and logarithmic scales that must be interpreted with perfect precision.</p>
+                   </div>
+                </div>
+
+                <div class="concept-card">
+                     <div class="concept-img" style="background-image: url('https://placehold.co/600x400')"></div>
+                    <div class="concept-content">
+                         <h3>The Elusive Shear Center</h3>
+                        <p>A theoretical point that migrates mysteriously through cross-sections, sometimes existing entirely outside the physical material. Students must pinpoint this phantom location to prevent torsional effects, often requiring triple integrals for simple-looking shapes.</p>
+                        <p>Understanding this concept requires visualizing complex interactions between shear flows and geometric properties in ways that human brains aren't wired to comprehend.</p>
+                    </div>
+                </div>
+             </div>
+        </div>
+    </div>
+
+    <div class="testimonial fade-in">
+         <div class="testimonial-container">
+             <p class="quote"> "In my 35 years of teaching engineering disciplines, I've watched Strength of Materials systematically dismantle the confidence of our brightest students. It's as if the subject was intentionally designed to filter out perfectly capable engineers through abstract complexity rather than practical relevance."</p>
+            <div class="author"> Dr. Richard Montgomery <span>Professor Emeritus, Engineering Mechanics</span> </div>
+        </div>
+    </div>
+
+    <section class="professor-bias fade-in"> <div class="bias-container"> <h2>The Selective Cruelty of Professors</h2> <p class="intro-paragraph">One of the most disturbing aspects of Strength of Materials is how it transforms otherwise reasonable professors into sadistic exam creators who seem to delight in student suffering. These professors perpetuate cycles of academic trauma through testing practices unique to this subject.</p> <div class="professor-card"> <p class="professor-quote">"I don't need to teach to the exam because the exam is designed to be virtually impossible anyway. The course average is consistently 42% - and that's exactly how it should be. Students need to understand that engineering isn't for everyone."</p> <div class="professor-info"> <div class="professor-avatar" style="background-image: url('https://placehold.co/150x150')"></div> <div> <div class="professor-name">Dr. Anthony Clarke</div> <div class="professor-title">Associate Professor of Engineering Mechanics</div> </div>
+                </div>
+            </div>
+
+             <p>Strength of Materials professors are notorious for:</p> <ul> <li>Creating exam problems that bear little resemblance to homework or examples, ensuring maximum student panic</li> <li>Using intentionally vague problem descriptions with missing information, then penalizing students for making "incorrect assumptions"</li> <li>Designing multi-part problems where a minor error in part A cascades catastrophically through parts B-E</li> <li>Setting time limits that would challenge even experienced professionals with decades of practice</li> <li>Refusing to provide partial credit for correct approaches with small calculation errors</li> <li>Celebrating high failure rates as a badge of honor rather than a teaching failure</li> </ul> </div>
+    </section>
+
+    <section class="mental-health fade-in">
+         <div class="mental-container"> 
+            <h2>The Psychological Toll: Beyond Academic Struggle</h2> 
+            <p>Engineering programs are already known for their challenging curricula, but Strength of Materials takes the mental health impact to unprecedented levels. The subject's unique combination of abstract complexity, high stakes, and apparent disconnection from practical applications creates a perfect storm of psychological distress.</p> 
+            <div class="impact-grid"> 
+                <div class="impact-card"> 
+                    <div class="impact-icon floating-icon">😰</div>
+                     <h3 class="impact-title">Chronic Anxiety</h3> 
+                     <p>Students report persistent anxiety that extends beyond normal academic stress, including physical symptoms like insomnia, appetite changes, and panic attacks specifically tied to this subject.</p> 
+                    </div>
+
+                <div class="impact-card"> <div class="impact-icon floating-icon">😭</div>
+                 <h3 class="impact-title">Feelings of Inadequacy</h3> <p>The perceived impossibility of mastering the material, combined with harsh grading, leads many students to question their overall academic abilities and career choice.</p>
+                 </div>
+
+                <div class="impact-card"> <div class="impact-icon floating-icon">😨</div> 
+                <h3 class="impact-title">Exam-Related Trauma</h3> <p>The sheer terror induced by Strength of Materials exams can create lasting psychological scars, with some students developing test anxiety that affects their performance in other courses.</p> </div>
+
+                <div class="impact-card"> <div class="impact-icon floating-icon">💔</div> 
+                <h3 class="impact-title">Loss of Passion</h3> <p>For some, Strength of Materials doesn't just challenge their understanding—it crushes their passion for engineering, leading them to switch majors or abandon their dreams altogether.</p> </div>
+            </div> 
+        </div>
+         </section>
+
+    <section class="counter-section fade-in"> 
+        <div class="counter-container"> 
+            <h2>Strength of Materials by the Numbers</h2>
+             <p>Here are some cold, hard statistics that illustrate the true nightmare that is Strength of Materials:</p> 
+             <div class="counter-grid"> <div class="counter-item"> 
+                <div class="counter-value" data-count="42">0</div> 
+                <div class="counter-text">Average course grade (%)
+
+                </div>
+             </div>
+                <div class="counter-item">
+                     <div class="counter-value" data-count="78">0</div>
+                      <div class="counter-text">Percentage of students who seek tutoring</div> 
+                    </div>
+                <div class="counter-item"> 
+                    <div class="counter-value" data-count="6">0</div> 
+                    <div class="counter-text">Average hours spent studying per credit hour</div> </div>
+                <div class="counter-item"> 
+                    <div class="counter-value" data-count="90">0</div> 
+                    <div class="counter-text">Percentage of students who consider changing majors</div> </div> </div> </div> </section>
+
+    <section class="cta fade-in">
+         <div class="cta-container"> 
+            <h2>Is There a Way Out? Hope for the Weary Engineer</h2> 
+            <p>For those brave souls still determined to face this academic Kraken, there may be a glimmer of hope. Emerging pedagogical approaches, supplemental resources, and a growing recognition of the problem offer potential paths through the darkness.</p> <a href="#" class="btn">Surviving Strength of Materials: A Student's Guide</a> </div>
+    </section>
+
+    <footer> <div class="footer-content"> 
+        <div class="social-icons"> <a href="#">[FB]</a> <a href="#">[TW]</a>
+         <a href="#">[IG]</a> <a href="#">[LI]</a> </div>
+            <div class="copyright"> &copy; 2024 Strength of Materials Survivor's Guide. All rights reserved. </div>
+        </div>
+    </footer>
+
+    <script>
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Fade-in animation for sections tagged with .fade-in
+        gsap.utils.toArray('.fade-in').forEach(section => {
+            gsap.from(section, {
+                opacity: 0,
+                y: 50,
+                duration: 1,
+                ease: 'power2',
+                scrollTrigger: {
+                    trigger: section,
+                    start: 'top 80%', // Trigger when 80% of the section enters viewport
+                    end: 'bottom 20%',
+                    scrub: false, // Don't scrub animation based on scroll position
+                    once: true // Only trigger once
+                }
+            });
+        });
+
+        // Initial animations for header elements (no scroll trigger)
+        gsap.from('h1', {
+            opacity: 0,
+            y: 50,
+            duration: 1,
+            ease: 'power2',
+            delay: 0.5
+        });
+
+        gsap.from('.tagline', {
+            opacity: 0,
+            y: 50,
+            duration: 1,
+            ease: 'power2',
+            delay: 1
+        });
+
+        gsap.from('.scroll-indicator', {
+            opacity: 0,
+            y: 20,
+            duration: 1,
+            ease: 'power2',
+            delay: 1.5
+        });
+
+        // Initialize CountUp animations for elements with .counter-value
+        function initCounters() {
+            const counters = document.querySelectorAll('.counter-value');
+            counters.forEach(counterElement => {
+                const endValue = parseInt(counterElement.getAttribute('data-count'), 10);
+                // Initialize CountUp library for each counter
+                const countUp = new CountUp(counterElement, 0, endValue, 0, 2.5, { useEasing: true, separator: ',' });
+
+                // Use ScrollTrigger to start the countUp animation when the element enters the viewport
+                ScrollTrigger.create({
+                    trigger: counterElement,
+                    start: 'top 80%', // Trigger when 80% of the element enters viewport
+                    end: 'bottom 20%',
+                    once: true, // Only trigger once
+                    onEnter: () => {
+                         countUp.start(); // Start the count-up animation
+                    },
+                });
+            });
+        }
+
+        // Call the counter initialization function
+        initCounters();
+
+    </script>
+</body>
+</html>

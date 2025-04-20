@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stylish Count Up to 100</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #1a1a2e; /* Dark background */
+            margin: 0;
+            overflow: hidden; /* Prevent scrollbars */
+        }
+
+        #counter {
+            font-family: 'Orbitron', sans-serif; /* Stylish, futuristic font */
+            font-size: 5em; /* Larger font size */
+            font-weight: 700; /* Bolder font weight */
+            color: #00ffff; /* Cyan text color */
+            background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent dark background */
+            padding: 20px 40px; /* Add padding around the number */
+            border-radius: 15px; /* Rounded corners */
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.6); /* Glow effect */
+            border: 2px solid #00ffff; /* Cyan border */
+            text-align: center; /* Center the text inside the div */
+            min-width: 150px; /* Ensure a minimum width */
+            display: inline-block; /* Allow padding and margins to work correctly */
+            text-shadow: 0 0 5px #00ffff; /* Text glow */
+        }
+    </style>
+</head>
+<body>
+
+    <div id="counter">0</div>
+
+    <script>
+        // Get the HTML element where the count will be displayed
+        const counterElement = document.getElementById('counter');
+
+        // Initialize the counter variable
+        let count = 0;
+
+        // Set the target count
+        const target = 100;
+
+        // Set the interval time in milliseconds (e.g., 50ms for faster updates)
+        const intervalTime = 50;
+
+        // Use setInterval to increment and display the count
+        const timer = setInterval(() => {
+            // Increment the count
+            count++;
+
+            // Update the text content of the HTML element
+            counterElement.textContent = count;
+
+            // Check if the target is reached
+            if (count === target) {
+                // If target is reached, stop the interval
+                clearInterval(timer);
+            }
+        }, intervalTime); // Run the function every intervalTime milliseconds
+
+    </script>
+
+</body>
+</html>

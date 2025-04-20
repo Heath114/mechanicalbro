@@ -1,0 +1,81 @@
+<html>
+<head>
+    <link rel="stylesheet" href="lol.css">
+</head>
+<body>
+    <header class="top-banner">
+        <div class="banner-text">
+            <h1>Jimmy's Diner</h1>
+            <p>The best burgers and pizza in town.</p>
+        </div>
+        <div class="banner-image">
+        </div>
+    </header>
+
+    <main class="menu-page page">
+        <ul class="menu-items">
+            <li class="menu-item">
+                <div class="item-image pizza" aria-label="Pizza icon">🍕</div>
+                <div class="item-details">
+                    <h3>Pizza</h3>
+                    <p class="price">$14</p>
+                </div>
+                <button class="add-button" aria-label="Add Pizza to order" data-id="0">+</button>
+            </li>
+            <li class="menu-item">
+                <div class="item-image hamburger" aria-label="Hamburger icon">🍔</div>
+                <div class="item-details">
+                    <h3>Hamburger</h3>
+                    <p class="ingredients">beef, cheese, lettuce</p>
+                    <p class="price">$12</p>
+                </div>
+                <button class="add-button" aria-label="Add Hamburger to order" data-id="1">+</button>
+            </li>
+            <li class="menu-item">
+                <div class="item-image beer" aria-label="Beer icon">🍺</div>
+                <div class="item-details">
+                    <h3>Beer</h3>
+                    <p class="ingredients">grain, hops, yeast, water</p>
+                    <p class="price">$12</p>
+                </div>
+                <button class="add-button" aria-label="Add Beer to order" data-id="2">+</button>
+            </li>
+        </ul>
+
+        <aside class="order-summary hidden">
+            <h2>Your order</h2>
+            <div class="order-items-container">
+                </div>
+            <div class="total-price">
+                <span>Total price</span>
+                <span>$0.00</span>
+            </div>
+            <button id="complete-order-btn" class="complete-order-button" disabled>Complete order</button>
+        </aside>
+    </main>
+
+    <div id="modal-overlay" class="modal-overlay hidden">
+        <div class="card-details-modal">
+            <h2>Enter card details</h2>
+            <form class="card-form">
+                <input type="text" placeholder="Enter your name">
+                <input type="text" placeholder="Enter card number">
+                <input type="text" placeholder="Enter CVV">
+                <button type="submit" class="pay-button">Pay</button>
+            </form>
+            <div class="modal-order-summary">
+                </div>
+            <div class="modal-total-price">
+                <span>Total price</span>
+                <span>$0.00</span>
+            </div>
+        </div>
+    </div>
+
+    <div id="confirmation-page" class="page confirmation-page hidden">
+        <p class="confirmation-message">Thanks, Jayson! Your order is on its way!</p>
+    </div>
+
+    <script src="lol.js" type="module"></script>
+</body>
+</html>
